@@ -1,0 +1,40 @@
+{% include "adminheader.html" %}
+<center>
+	<br>
+	<br>
+	<br>
+	<br>
+	<form>
+		<table class="table" style="width:1200px">
+			<h1><b>REGISTERED USERS</b></h1>
+			<br>
+			<br>
+			<tr>
+				<th>Sl No</th>
+				<th>First Name</th>
+				<th>Last Name</th>
+				<th>Phone</th>
+				<th>Email</th>
+				<th>License</th>
+				<th>Location</th>
+				
+			</tr>
+
+			{% for row in viewusers %}
+			<tr>
+				<td>{{forloop.counter}}</td>
+				<td>{{row.u_first_name}}</td>
+				<td>{{row.u_last_name}}</td>
+				<td>{{row.u_phone}}</td>
+				<td>{{row.u_email}}</td>
+				<td>{{row.u_licence}}</td>
+				<td><a class="btn btn-primary" target="_blank" href="http://www.google.com/maps?q={{row.latitude}},{{row.longitude}} ">View Location</a></td>
+				
+				
+			</tr>
+			{% endfor %}
+			
+		</table>
+	</form>
+</center>
+{% include "footer.html" %}

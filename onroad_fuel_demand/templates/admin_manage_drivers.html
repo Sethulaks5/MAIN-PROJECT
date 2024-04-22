@@ -1,0 +1,181 @@
+{% include "adminheader.html" %}
+<center>
+	<br>
+	<br><br><br>
+	<form method="post">
+	
+		{% if updriver %}
+		<h1><b>UPDATE DRIVERS</b></h1>
+		<br>
+		<br>
+		<table class="table" style="width:500px">
+			<tr>
+				<th>First Name</th>
+				<td><input type="text" name="fname" value="{{updriver.d_first_name}}" required></td>
+			</tr>
+			<tr>
+				<th>Last Name</th>
+				<td><input type="text" name="lname" value="{{updriver.d_last_name}}" required></td>
+			</tr>
+			<tr>
+				<th>Phone</th>
+				<td><input type="text" name="phone" value="{{updriver.d_phone}}" pattern="[0-9]{10}" required></td>
+			</tr>
+			<tr>
+				<th>Email</th>
+			<td><input type="email" name="email" value="{{updriver.d_email}}" required></td>
+			</tr>
+			<tr>
+				<th>License Number</th>
+				<td><input type="text" name="lnum" value="{{updriver.d_licensenum}}"  required></td>
+			</tr>
+				<td colspan="2" align="center"><input type="submit" name="submitss" value="Update" class="btn btn-success"></td>
+			</tr>
+			
+		</table>
+
+
+
+		{% else %}
+
+		<h1><b>PUMP REGISTRATION</b></h1>
+		<br>
+		<br>
+		<table class="table" style="width:500px">
+			<tr>
+				<th>Pump Name</th>
+				<td><input type="text" name="fname"   pattern="[A-Za-z/s]{0,30}" required></td>
+			</tr>
+			<tr>
+				<th>Place Name</th>
+				<td><input type="text" name="lname"  pattern="[A-Za-z/s]{0,30}" required></td>
+			</tr>
+			<tr>
+				<th>Phone</th>
+				<td><input type="text" name="phone" maxlength="10"  required></td>
+			</tr>
+			<tr>
+				<th>Email</th>
+			<td><input type="email" name="email"  required></td>
+			</tr>
+			<tr>
+				<th>License Number</th>
+				<td><input type="text" name="lnum" maxlength="11" required></td>
+			</tr>
+			<tr>
+				<th>Username</th>
+				<td><input type="text" name="unamer"  required></td>
+			</tr>
+			<tr>
+				<th>Password</th>
+				<td><input type="Password" name="pwds"  required></td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center"><input type="submit" name="submit" value="Add" class="btn btn-success"></td>
+			</tr>
+			
+		</table>
+
+
+		{% endif %}
+		<br>
+		<br>
+		<table class="table" style="width:1300px">
+			<h1><b>PUMP DETAILS</b></h1>
+			<br>
+			<br>
+			<tr>
+				<th>Sl no</th>
+				<th>Name</th>
+				<th>Phone</th>
+				<th>Email</th>
+				<th>License Number</th>
+			</tr>
+			{% for row in viewdriver%}
+			<tr>
+				<td>{{forloop.counter}}</td>
+				<td>{{row.d_first_name}} {{row.d_last_name}}</td>
+				<td>{{row.d_phone}}</td>
+				<td>{{row.d_email}}</td>
+				<td>{{row.d_licence}}</td>
+				<!-- <td><a href="update_driver/{{row.login_id}}">Update</a></td> -->
+				<td><a href="delete_driver/{{row.login_id}}">Delete</a></td>
+				<td><a href="admin_assign_vehicle/{{row.driver_id}}/{{row.d_first_name}}">Assign Vehicle</a></td>
+			</tr>
+			{% endfor %}
+
+
+		</table>
+
+		
+	</form>
+
+	
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+    $(function() {
+        $("input[name='fname']").on('input', function(e) {
+            $(this).val($(this).val().replace(/[^A-Za-z ]/g, ''));
+
+        });
+        $("input[name='lname']").on('input', function(e) {
+            $(this).val($(this).val().replace(/[^A-Za-z ]/g, ''));
+
+        });
+        // $("input[name='dob']").on('input', function(e) {
+        //     $(this).val($(this).val().replace(/[^0-9/]/g, ''));
+
+        // });
+        
+        $("input[name='phone']").on('input', function(e) {
+        	$(this).val($(this).val().replace(/[^0-9]/g, ''));
+            
+        });
+        $("input[name='lnum']").on('input', function(e) {
+        	$(this).val($(this).val().replace(/[^0-9]/g, ''));
+            
+        });
+        $("input[name='email']").on('input', function(e) {
+              var re = /([A-Z0-9a-z_-][^@])+?@[^$#<>?]+?\.[\w]{1,}/.test(this.value);
+           
+                if(!re) {
+                    $('#eerror').show();
+                    $('#btn').prop('disabled', true);
+                    console.log("err");
+                } else {
+                    $('#btn').prop('disabled', false);
+                    $('#eerror').hide();
+                    console.log("err");
+                }
+
+        });
+        $("input[name='address']").on('input', function(e) {
+            $(this).val($(this).val().replace(/[^A-Za-z0-9()/. ]/g, ''));
+
+        });
+        $("input[name='place']").on('input', function(e) {
+            $(this).val($(this).val().replace(/[^A-Za-z ]/g, ''));
+
+        });
+            
+        $("input[name='passw']").on('input', function(e) {
+        	// $(this).val($(this).val().replace(/[^0-9A-Za-z@/. ]/g, ''));
+            var val = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(this.value);
+                if(!val) {
+                    $('#eerror2').show();
+                    $('#btn').prop('disabled', true);
+                    console.log("err");
+                } else {
+                    $('#btn').prop('disabled', false);
+                    $('#eerror2').hide();
+                    console.log("err");
+                }
+            
+        });
+    });
+
+
+</script>
+
+</center>
+{%include "footer.html" %}

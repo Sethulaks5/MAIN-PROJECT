@@ -1,0 +1,34 @@
+{%include "adminheader.html" %}
+<center>
+	<br>
+	<br>
+	<br>
+	<br>
+	<form>
+		<table class="table" style="width:800px">
+			<h1><b>RATINGS</b></h1>
+			<br>
+			<br>
+			<tr>
+				<th>Sl No</th>
+				<th>User Name</th>
+				<th>Driver Name</th>
+				<th>Rating</th>
+				<th>Review</th>
+				<th>Date-time</th>
+
+			</tr>
+			{% for row in viewrating %}
+			<tr>
+				<td>{{forloop.counter}}</td>
+				<td>{{row.booking.user.u_first_name}}</td>
+				<td>{{row.booking.driver.d_first_name}}</td>
+				<td>{{row.rating}}</td>
+				<td>{{row.review}}</td>
+				<td>{{row.rating_datetime}}</td>
+			</tr>
+			{% endfor %}
+		</table>
+	</form>
+</center>
+{% include "footer.html" %}

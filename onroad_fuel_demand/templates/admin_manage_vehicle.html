@@ -1,0 +1,107 @@
+{% include "adminheader.html" %}
+<center>
+	<br>
+	<br>
+	<br>
+	<br>
+	<form method="post">
+		{% if updatevehicle%}
+		<h1><b>UPDATE VEHICLES</b></h1>
+		<br>
+		
+		<table class="table" style="width:500px">
+			<!-- <tr>
+				<th>Fuel Type</th>
+				<td><select name="fuel" id="">
+					{% for row in view_fuel_type %}
+					<option value="{{ updatevehicle.fuel_type_id}}">{{ updatevehicle.fuel_type_name}}</option>
+					{% endfor %}
+				</select></td>
+			</tr> -->
+			<tr>
+				<th>Register Number</th>
+				<td><input type="text" name="regnum" value="{{updatevehicle.vehicles_reg_no}}" required></td>
+			</tr>
+			<tr>
+				<th>Vehicle</th>
+				<td><input type="text" name="vehicle" value="{{updatevehicle.vehicles_name}}" required></td>
+			</tr>
+			<tr>
+				<th>Capacity</th>
+			<td><input type="number" name="capacity" value="{{updatevehicle.vehicles_capacity}}" required></td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center"><input type="submit" name="submitss" value="Update" class="btn btn-success"></td>
+			</tr>
+			
+		</table>
+
+
+
+		{% else %}
+
+		<h1><b>ADD VEHICLES</b></h1>
+		<br>
+	
+		<table class="table" style="width:500px">
+			<tr>
+				<th>Fuel Type</th>
+				<td><select name="fuel" id="" class="form-control">
+					<!-- <option value="">-- Select Type --</option> -->
+					{% for row in view_fuel_type %}
+					<option value="{{ row.fuel_type_id}}">{{ row.fuel_type_name}}</option>
+					{% endfor %}
+				</select></td>
+			</tr>
+			<tr>
+				<th>Register Number</th>
+				<td><input type="text" name="regnum"  required class="form-control"></td>
+				<!-- <td><input type="text" name="regnum" pattern="[A-Z]{2}\s[0-9]{2}\s[A-Z]{2}\s[0-9]{4}" class="form-control" required></td> -->
+			</tr>
+			<tr>
+				<th>Vehicle</th>
+				<td><input type="text" name="vehicle"  required class="form-control"></td>
+			</tr>
+			<tr>
+				<th>Capacity</th>
+			<td><input type="number" name="capacity"  required  class="form-control"></td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center"><input type="submit" name="submit" value="Add" class="btn btn-success"></td>
+			</tr>
+			
+		</table>
+
+
+		{% endif %}
+		<br>
+		<br>
+		<table class="table" style="width:800px">
+			<h1><b>VEHICLE DETAILS</b></h1>
+			<br>
+		
+
+			<tr>
+				<th>Fuel Type</th>
+				<th>Register Number</th>
+				<th>Vehicle</th>
+				<th>Capacity</th>
+			</tr>
+			{% for row in view_vehicle%}
+			<tr>
+				<td>{{row.fuel_type.fuel_type_name }}</td>
+				<td>{{row.vehicles_reg_no}}</td>
+				<td>{{row.vehicles_name}}</td>
+				<td>{{row.vehicles_capacity}}</td>
+			<td><a href="update_vehicle/{{row.vehicles_id}}">Update</a></td>
+			<td><a href="delete_vehicle/{{row.vehicles_id}}">Delete</a></td>
+			</tr>
+			{% endfor %}
+
+
+		</table>
+		
+	</form>
+</center>
+{% include "footer.html" %}
+

@@ -1,0 +1,29 @@
+{% include 'public_header.html'%}
+<div style="margin-bottom: 1em;  background:url('/static/img/fuel.jpg') ; height: 300px; width: 100%; background-position: center; background-size: cover; " >
+	</div>
+
+<center>
+	<form method="post">
+			<table class="table table-borderless" style="width: 700px;">
+				<h2>Login Here</h2>
+			<tr>
+				<th>User Name</th>
+				<td><input type="text" name="uname" value="" class="form-control" required ></td>
+			</tr>
+			<tr>
+				<th>Password</th>
+
+				<td><input type="Password" name="passw" value="" required="" class="form-control" id="id_password" autocomplete="current-password" ></td>
+
+				<td><i class="fa-eye-slash far fa-eye" id="togglePassword" style="margin-left: -40px; cursor: pointer; position: relative; top:8px"></i></td>
+			</tr>
+			<tr>
+				<td align="center" colspan="2"><input type="submit" name="button" value="Login" class="btn btn-outline-success" style="width: 150px;"></td>
+			</tr>
+
+			</table>
+			</form>
+			</center>
+		
+
+            {% include 'footer.html'%}

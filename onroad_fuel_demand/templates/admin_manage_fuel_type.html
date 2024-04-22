@@ -1,0 +1,97 @@
+{% include "adminheader.html" %}
+
+
+<center>
+	<form method="post">
+		{% if upftype %}
+		<h1 style="color: violet"><b>UPDATE FUEL</b></h1>
+		<br>
+		
+		<table class="table" style="width:500px">
+			<tr>
+				<th>FUEL TYPE</th>
+				<td><input type="text" name="ftype" value="{{upftype.fuel_type_name}}"  required></td>
+			</tr>
+			<tr>
+				<th>RATE</th>
+				<td><input type="number" name="frate" value="{{upftype.fuel_type_rate}}"  required></td>
+			</tr>
+			
+			<tr>
+				<td colspan="2" align="center"><input type="submit" name="utype" value="Update" class="btn btn-success"></td>
+			</tr>
+			
+		</table>
+
+
+
+		{% else %}
+
+		<h1><b>ADD FUEL TYPE</b></h1>
+		<br>
+	
+		<table class="table" style="width:500px">
+			<tr>
+				<th>Type</th>
+				<td><input type="text" name="ftype"   required></td>
+			</tr>
+			<tr>
+				<th>Rate</th>
+				<td><input type="text"  id="priceInput"  oninput="validatePrice()" name="frate"  required></td>
+			</tr>
+			
+			<tr>
+				<td colspan="2" align="center"><input type="submit" name="type" value="Add" class="btn btn-success"></td>
+			</tr>
+			
+		</table>
+
+
+		{% endif %}
+		<br>
+		<br>
+		<table class="table" style="width:800px">
+			<h1><b>FUEL DETAILS</b></h1>
+			<br>
+		
+
+			<tr>
+				<th>FUEL TYPE</th>
+				<th>RATE</th>
+				<th>DATE TIME</th>
+			</tr>
+			{% for row in viewfueltype %}
+			<tr>
+				<td>{{row.fuel_type_name}}</td>
+				<td>₹ {{row.fuel_type_rate}}</td>
+				<td>{{row.fuel_type_datetime}}</td>
+				<td><a href="update_fueltype/{{row.fuel_type_id}}">Update</a></td>
+				<td><a href="delete_fuel_type/{{row.fuel_type_id}}">Delete</a></td>
+			</tr>
+		
+			{% endfor %}
+
+
+		</table>
+		
+	</form>
+</center>
+
+{% include "footer.html" %}
+
+
+<script>
+    function validatePrice() {
+      var priceInput = document.getElementById("priceInput").value;
+      var sanitizedInput = priceInput.replace(/[^0-9.]/g, ''); // Remove characters other than numbers and period
+
+      if (sanitizedInput !== priceInput) {
+        document.getElementById("priceInput").value = sanitizedInput;
+        console.log("Invalid characters removed");
+      }
+
+      // Now you can use the sanitizedInput for further processing, such as storing in a variable or submitting to a server.
+      console.log("Sanitized price: " + sanitizedInput);
+    }
+  </script>
+

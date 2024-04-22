@@ -1,0 +1,111 @@
+{%include "adminheader.html" %}
+
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyD3MPnSnyWwNmpnVEFkaddVvy_GWtxSejs&sensor=false"></script>
+        <script type="text/javascript">
+            // window.onload = function () {
+            function myFunction() {
+                var mapOptions = {
+                    center: new google.maps.LatLng(9.9763482, 76.286272),
+                    zoom: 14,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+                var infoWindow = new google.maps.InfoWindow();
+                var latlngbounds = new google.maps.LatLngBounds();
+                var map = new google.maps.Map(document.getElementById("dvMap"), mapOptions);
+                google.maps.event.addListener(map, 'click', function (e) {
+                    alert("Latitude: " + e.latLng.lat() + "\r\nLongitude: " + e.latLng.lng());
+                    document.getElementById('slati').value = e.latLng.lat();
+                    document.getElementById('elongi').value = e.latLng.lng();
+
+
+                });
+            }
+        </script>
+        <style type="text/css">
+        </style>
+        <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyD3MPnSnyWwNmpnVEFkaddVvy_GWtxSejs&sensor=false"></script>
+        <script type="text/javascript">
+            // window.onload = function () {
+            function myfun() {
+                var mapOptions = {
+                    center: new google.maps.LatLng(9.9763482, 76.286272),
+                    zoom: 14,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+                var infoWindow = new google.maps.InfoWindow();
+                var latlngbounds = new google.maps.LatLngBounds();
+                var map = new google.maps.Map(document.getElementById("dvMap"), mapOptions);
+                google.maps.event.addListener(map, 'click', function (e) {
+                    alert("Latitude: " + e.latLng.lat() + "\r\nLongitude: " + e.latLng.lng());
+                    document.getElementById('slati1').value = e.latLng.lat();
+                    document.getElementById('elongi1').value = e.latLng.lng();
+
+
+                });
+            }
+        </script>
+        <style type="text/css">
+        </style>
+<center>
+	<form method="post">
+
+		<table class="table" style="width:500px">
+			<h1><b>ASSIGN VEHICLES</b></h1>
+            <br>
+            <br>
+			<tr>
+				<th>Vehicle Name</th>
+				<td>
+				<select name="vname"  required>
+					{% for row in viewvhicle %}
+					<option value="{{row.vehicles_id}}">{{ row.vehicles_name}}</option>
+					{% endfor %}
+				</select>
+				</td>
+			</tr>
+			<tr>
+				<th>Driver Name</th>
+				<td><input type="text" name="dname" value="{{qc}}" pattern="[A-Za-z/s]{0,30}" required readonly></td>
+			</tr>
+			 <td><a onclick="myFunction();">View Map</a></td>
+			<tr>
+				<th>Latitude</th>
+				<td><input type="text" name="lati" id="slati" required></td>
+			</tr>
+			<tr>
+				<th>Longitude</th>
+				<td><input type="text" name="longi"  id="elongi" required></td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center"><input type="submit" name="submits" value="Assign" class="btn btn-success"></td>
+			</tr>
+
+			
+		</table>
+		 <div id="dvMap" style="width: 600px; height: 400px"></div>
+            <h2 align="center"><u><strong>VIEW ASSIGNED VEHICLES</strong></u></h2><br><br>
+            <table class="table" style="width:500px">
+                <tr>
+                    <th>Index</th>
+                    <th>Vehicle Name</th>
+                    <th>Location</th>
+                </tr>
+                {% for i in viewassignvehicle %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{i.vehicles.vehicles_name}}</td>
+                    <td><a class="btn btn-success" href="http://www.google.com/maps?q={{ i.latitude }},{{ i.longitude }}">Location</a></td>
+                </tr>
+                {% endfor %}
+            </table>
+
+
+
+        
+
+					
+			
+		
+	</form>
+</center>
+{%include "footer.html" %}
